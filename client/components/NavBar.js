@@ -10,7 +10,7 @@ const NavBar = () => (
           Home
         </Link>
         <Link to="/messages" className="text-link">
-          Messages
+          Messages123
         </Link>
       </div>
     </div>
