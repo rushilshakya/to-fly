@@ -7,6 +7,7 @@
   "description": "",
   "scripts": {
     "dev:client": "parcel -p 3002 client/index.html",
+    "dev:db-tunnel": "flyctl proxy 5432 -a $(grep DB_NAME .env | cut -d '=' -f2)",
     "dev:server": "NODE_ENV=development nodemon server/index.js",
     "dev": "concurrently 'npm run dev:client' 'npm run dev:server'",
     "build": "NODE_ENV=build parcel build --no-cache --no-source-maps client/index.html",
@@ -15,7 +16,8 @@
     "lint": "eslint .",
     "prettier": "prettier --write .",
     "test-debug": "NODE_ENV=test jest --verbose --runInBand --forceExit",
-    "test": "NODE_ENV=test jest --verbose --forceExit"
+    "test": "NODE_ENV=test jest --verbose --forceExit",
+    "migration:down": "node server/util/rollback.js"
   },
   "keywords": [],
   "author": "",
@@ -27,9 +29,12 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
+    "pg": "^8.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.1"
+    "react-router-dom": "^6.4.1",
+    "sequelize": "^6.25.3",
+    "umzug": "^3.2.1"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
