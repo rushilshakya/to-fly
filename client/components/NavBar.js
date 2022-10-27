@@ -20,7 +20,7 @@ const NavBar = () => {
               <span>Hi {user.firstName}</span>
               <button
                 type="button"
-                className="secondary-button"
+                className="text-link"
                 onClick={() => dispatch(logOutUser())}
               >
                 Logout
