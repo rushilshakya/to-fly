@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import loginService from "../services/login";
+import loginService from "../services/login";
 
 const userSlice = createSlice({
   name: "user",
@@ -15,16 +15,25 @@ const userSlice = createSlice({
 
 export const populateUser = (user) => {
   return async (dispatch) => {
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("loggedUserJSON", JSON.stringify(user));
     dispatch(userSlice.actions.storeUser(user));
   };
 };
 
-// export const initializeUser = () => {
-//   return async (dispatch) => {
-//     const user = await noteService.getAll();
-//     dispatch(setNotes(notes));
-//   };
-// };
+export const initializeUser = () => {
+  return async (dispatch) => {
+    const loggedUserJSON = localStorage.getItem("loggedUserJSON");
+    if (loggedUserJSON) {
+      const parsedLoggedUserJSON = JSON.parse(loggedUserJSON);
+      try {
+        const user = await loginService.me(parsedLoggedUserJSON);
+        dispatch(userSlice.actions.storeUser(user));
+      } catch (e) {
+        console.log("token is not valid.  removing stored token");
+        localStorage.removeItem("loggedUserJSON");
+      }
+    }
+  };
+};
 
 export default userSlice.reducer;

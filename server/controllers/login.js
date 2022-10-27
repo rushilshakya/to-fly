@@ -25,6 +25,8 @@ loginRouter.post("/", async (request, response) => {
   const userForToken = {
     email,
     id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
   };
 
   // token expires in 60*60 seconds, that is, in one hour
@@ -33,6 +35,23 @@ loginRouter.post("/", async (request, response) => {
   });
 
   response.status(200).send({ token, ...userForToken });
+});
+
+loginRouter.post("/me", async (request, response) => {
+  const { token } = request.body;
+
+  const decodedToken = jwt.verify(token, SECRET);
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: "token missing or invalid" });
+  }
+  const user = await User.findByPk(decodedToken.id);
+  response.status(200).send({
+    token,
+    email: user.email,
+    id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
+  });
 });
 
 module.exports = loginRouter;
