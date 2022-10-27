@@ -6,7 +6,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev:client": "parcel -p 3002 client/index.html",
+    "dev:client": "NODE_ENV=development parcel -p 3002 client/index.html",
     "dev:db-tunnel": "flyctl proxy 5432 -a $(grep DB_NAME .env | cut -d '=' -f2)",
     "dev:server": "NODE_ENV=development nodemon server/index.js",
     "dev": "concurrently 'npm run dev:client' 'npm run dev:server'",
