@@ -40,18 +40,19 @@ loginRouter.post("/", async (request, response) => {
 loginRouter.post("/me", async (request, response) => {
   const { token } = request.body;
 
-  const decodedToken = jwt.verify(token, SECRET);
-  if (!decodedToken.id) {
+  try {
+    const decodedToken = jwt.verify(token, SECRET);
+    const user = await User.findByPk(decodedToken.id);
+    response.status(200).send({
+      token,
+      email: user.email,
+      id: user.id,
+      firstName: user.first_name,
+      lastName: user.last_name,
+    });
+  } catch (e) {
     return response.status(401).json({ error: "token missing or invalid" });
   }
-  const user = await User.findByPk(decodedToken.id);
-  response.status(200).send({
-    token,
-    email: user.email,
-    id: user.id,
-    firstName: user.first_name,
-    lastName: user.last_name,
-  });
 });
 
 module.exports = loginRouter;
