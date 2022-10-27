@@ -1,21 +1,24 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import loginService from "../services/login";
+import { populateUser } from "../reducers/userReducer";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState({ token: null });
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
 
   const handleSubmit = async (event, { email, password }) => {
     event.preventDefault();
-
     try {
       const loggedUser = await loginService.login({
         email,
         password,
       });
-      setUser(loggedUser);
-      console.log("logged in!");
+      dispatch(populateUser(loggedUser));
       // blogService.setToken(loggedUser.token);
       // window.localStorage.setItem(
       //   "loggedNoteappUser",
@@ -28,7 +31,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className="wrapper">
       <div>User is {user.token}</div>
       <h2>Login</h2>
 
