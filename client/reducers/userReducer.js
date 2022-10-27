@@ -8,6 +8,9 @@ const userSlice = createSlice({
     storeUser(state, action) {
       return { ...action.payload };
     },
+    logOutUser() {
+      return { token: null };
+    },
   },
 });
 
@@ -33,6 +36,14 @@ export const initializeUser = () => {
         localStorage.removeItem("loggedUserJSON");
       }
     }
+  };
+};
+
+export const logOutUser = () => {
+  return async (dispatch) => {
+    localStorage.removeItem("loggedUserJSON");
+
+    dispatch(userSlice.actions.logOutUser());
   };
 };
 

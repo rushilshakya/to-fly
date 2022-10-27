@@ -32,31 +32,36 @@ const LoginForm = () => {
 
   return (
     <div className="wrapper">
-      <div>User is {user.token}</div>
-      <h2>Login</h2>
+      {user.token ? (
+        <div>You are logged in as {user.email}</div>
+      ) : (
+        <>
+          <h2>Login</h2>
 
-      <form onSubmit={(event) => handleSubmit(event, { email, password })}>
-        <div>
-          username
-          <input
-            value={email}
-            id="username"
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            type="password"
-            value={password}
-            id="password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <button type="submit" id="login-button">
-          login
-        </button>
-      </form>
+          <form onSubmit={(event) => handleSubmit(event, { email, password })}>
+            <div>
+              username
+              <input
+                value={email}
+                id="username"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </div>
+            <div>
+              password
+              <input
+                type="password"
+                value={password}
+                id="password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </div>
+            <button type="submit" id="login-button">
+              login
+            </button>
+          </form>
+        </>
+      )}
     </div>
   );
 };
