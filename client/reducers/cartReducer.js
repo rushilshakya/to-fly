@@ -11,8 +11,9 @@ const cartSlice = createSlice({
   },
 });
 
-export const initializeCart = (user) => {
-  return async (dispatch) => {
+export const initializeCart = () => {
+  return async (dispatch, getState) => {
+    const user = getState().user;
     if (!user.token) dispatch(cartSlice.actions.setCart({}));
     else {
       try {

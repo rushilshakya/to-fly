@@ -18,7 +18,7 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(initializeCart(user));
+    dispatch(initializeCart());
   }, [user, dispatch]);
 
   return (
