@@ -2,6 +2,24 @@
   display: grid;
 }
 
+.grid-overlay {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.cart-count {
+  transform: translateY(-20%) translateX(100%);
+  font-size: 12px;
+  line-height: 17px;
+  height: 18px;
+  width: 18px;
+  text-align: center;
+  color: #fff;
+  background: $primary-color;
+  border-radius: 50%;
+  padding: 1px;
+}
+
 .grid-2up {
   grid-template-columns: 1fr;
   gap: 2rem;

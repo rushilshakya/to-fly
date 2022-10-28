@@ -20,13 +20,13 @@ const NavBar = () => {
     <div className="wrapper">
       <div className="flex split-pair align-center region-tn">
         <img src={toskaLogo} alt="toska" className="logo" />
-        <div className="flex gap-2">
+        <div className="flex gap-2 align-center">
           <Link to="/" className="text-link">
             Home
           </Link>
           {user.firstName ? (
             <>
-              <span>Hi {user.firstName}</span>
+              <div>Hi {user.firstName}</div>
               <button
                 type="button"
                 className="text-link"
@@ -40,9 +40,13 @@ const NavBar = () => {
               Login
             </Link>
           )}
-          <Link to="/cart">
-            <img src={cartImage} alt="Cart" className="cartButton" />
-            <div id="cartCount">{cartCount}</div>
+          <Link to="/cart" className="grid text-decoration-none">
+            <img
+              src={cartImage}
+              alt="Cart"
+              className="cart-button grid-overlay"
+            />
+            <div className="grid-overlay cart-count">{cartCount}</div>
           </Link>
         </div>
       </div>
