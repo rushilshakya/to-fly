@@ -1,10 +1,12 @@
-import toskaLogo from "../assets/images/toskalogo_color.svg";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import toskaLogo from "../assets/images/toskalogo_color.svg";
+import cartImage from "../assets/images/cart.png";
 import { logOutUser } from "../reducers/userReducer";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   return (
@@ -31,6 +33,10 @@ const NavBar = () => {
               Login
             </Link>
           )}
+          <Link to="/cart">
+            <img src={cartImage} alt="Cart" className="cartButton" />
+            {/* <div id="cartCount">{cartCount}</div> */}
+          </Link>
         </div>
       </div>
     </div>
