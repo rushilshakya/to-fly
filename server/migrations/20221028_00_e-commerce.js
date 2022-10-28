@@ -48,7 +48,7 @@ module.exports = {
       },
       user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "users", key: "id" },
       },
     });
@@ -69,12 +69,12 @@ module.exports = {
       },
       order_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "orders", key: "id" },
       },
       product_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "products", key: "id" },
       },
     });
