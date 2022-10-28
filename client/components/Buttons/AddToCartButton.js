@@ -1,6 +1,11 @@
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../reducers/cartReducer";
+
 const AddToCartButton = ({ product }) => {
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
-    console.log("submit", product);
+    dispatch(addToCart(product));
   };
   return (
     <button type="submit" className="buy-button" onClick={handleSubmit}>

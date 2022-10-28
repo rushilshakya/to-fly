@@ -8,6 +8,10 @@ const cartService = {
     const response = await axios.get(baseUrl, user.config);
     return response.data;
   },
+  postCart: async (postItem, user) => {
+    const response = await axios.post(baseUrl, postItem, user.config);
+    return response.data;
+  },
 };
 
 export default cartService;
