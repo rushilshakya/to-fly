@@ -21,9 +21,23 @@ POST http://localhost:3001/api/products/ HTTP/1.1
 content-type: application/json
 
 {
-    "name": "pants",
-    "price": 200,
+    "name": "t-shirt",
+    "price": 100,
     "stock": 100
 }
 ###
 GET http://localhost:3001/api/products/ HTTP/1.1
+###
+POST http://localhost:3001/api/cart/ HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJ1c2hpbEBob3RtYWlsLmNvbSIsImlkIjoxLCJmaXJzdE5hbWUiOiJydXNoaWwiLCJsYXN0TmFtZSI6InNoYWt5YSIsImlhdCI6MTY2Njk2ODYzNSwiZXhwIjoxNjY2OTcyMjM1fQ.eNqDJR1JdrvDrVJVqzqNNMWuui2orKn6cMWS9rEbPyo
+
+{
+    "product_id": 2,
+    "quantity": 4
+}
+###
+GET http://localhost:3001/api/cart/ HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJ1c2hpbEBob3RtYWlsLmNvbSIsImlkIjoxLCJmaXJzdE5hbWUiOiJydXNoaWwiLCJsYXN0TmFtZSI6InNoYWt5YSIsImlhdCI6MTY2Njk2ODYzNSwiZXhwIjoxNjY2OTcyMjM1fQ.eNqDJR1JdrvDrVJVqzqNNMWuui2orKn6cMWS9rEbPyo
+
