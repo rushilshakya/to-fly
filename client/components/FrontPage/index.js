@@ -1,17 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const FrontPage = () => (
-  <div className="wrapper region-md flow-md">
-    <h3 className="h3 hero-title text-center">
-      Welcome to boilerplate messages app
-    </h3>
-    <div className="flex split-center">
-      <Link to="/messages" className="primary-button">
-        VIEW MESSAGES
-      </Link>
+const FrontPage = () => {
+  const products = useSelector((state) => state.products);
+
+  return (
+    <div className="wrapper region-md flow-md">
+      <h3 className="h3 hero-title text-center">Browse our products</h3>
+      <div className="flex space-evenly">
+        {products.map((x) => (
+          <div key={x.id}>{x.name}</div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default FrontPage;
