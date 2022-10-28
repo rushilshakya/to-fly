@@ -5,6 +5,7 @@ const path = require("path");
 const messagesRouter = require("./controllers/messagesRouter");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
+const productsRouter = require("./controllers/products");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.static("dist"));
 app.use("/api/messages", messagesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/products", productsRouter);
 
 // sends index.html
 app.use("*", (req, res) => {
