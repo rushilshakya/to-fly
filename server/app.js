@@ -6,6 +6,7 @@ const messagesRouter = require("./controllers/messagesRouter");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 const productsRouter = require("./controllers/products");
+const cartRouter = require("./controllers/cart");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use("/api/messages", messagesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/cart", cartRouter);
 
 // sends index.html
 app.use("*", (req, res) => {
