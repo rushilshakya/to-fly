@@ -6,7 +6,12 @@ const userSlice = createSlice({
   initialState: { token: null },
   reducers: {
     storeUser(state, action) {
-      return { ...action.payload };
+      return {
+        ...action.payload,
+        config: {
+          headers: { Authorization: `bearer ${action.payload.token}` },
+        },
+      };
     },
     logOutUser() {
       return { token: null };

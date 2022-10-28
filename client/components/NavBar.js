@@ -6,7 +6,14 @@ import { logOutUser } from "../reducers/userReducer";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
-  const cart = useSelector((state) => state.cart);
+  const cartCount = useSelector((state) =>
+    state.cart.products
+      ? state.cart.products.reduce(
+          (prev, curr) => prev + curr.order_detail.quantity,
+          0
+        )
+      : 0
+  );
   const dispatch = useDispatch();
 
   return (
@@ -35,7 +42,7 @@ const NavBar = () => {
           )}
           <Link to="/cart">
             <img src={cartImage} alt="Cart" className="cartButton" />
-            {/* <div id="cartCount">{cartCount}</div> */}
+            <div id="cartCount">{cartCount}</div>
           </Link>
         </div>
       </div>
