@@ -10,13 +10,18 @@ const cartSlice = createSlice({
     setCart(state, action) {
       return { ...action.payload };
     },
-    changeCart(state, action) {
+    updateCart(state, action) {
       return {
         ...state,
-        order_detail: [
-          ...state.order_detail.filter((x) => x.id !== action.payload.id),
-          { ...action.payload },
-        ],
+        order_detail: state.order_detail.map((x) =>
+          x.id === action.payload.id ? action.payload : x
+        ),
+      };
+    },
+    addCart(state, action) {
+      return {
+        ...state,
+        order_detail: [...state.order_detail, action.payload],
       };
     },
     logOutCart() {
@@ -46,20 +51,25 @@ export const addToCart = (product) => {
     if (!user.token) console.log("no user token");
     else {
       let addedQuantity;
+      let productExistsInCart = false;
       if (cart.order_detail.length) {
         let currentProductInCart = cart.order_detail.find(
           (x) => x.id === product.id
         );
-        if (currentProductInCart)
+        if (currentProductInCart) {
           addedQuantity = currentProductInCart.quantity + 1;
-        else addedQuantity = 1;
+          productExistsInCart = true;
+        } else addedQuantity = 1;
       } else {
         addedQuantity = 1;
       }
       try {
         const postProduct = { product_id: product.id, quantity: addedQuantity };
         const changedProduct = await cartService.postCart(postProduct, user);
-        dispatch(cartSlice.actions.changeCart(changedProduct));
+
+        if (productExistsInCart)
+          dispatch(cartSlice.actions.updateCart(changedProduct));
+        else dispatch(cartSlice.actions.addCart(changedProduct));
       } catch (e) {
         console.log("something went wrong with get cart");
       }
