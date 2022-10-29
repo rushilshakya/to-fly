@@ -4,6 +4,7 @@ import toskaLogo from "../assets/images/toskalogo_color.svg";
 import cartImage from "../assets/images/cart.png";
 import { logOutUser } from "../reducers/userReducer";
 import { logOutCart } from "../reducers/cartReducer";
+import Notification from "./Notification";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
@@ -53,6 +54,7 @@ const NavBar = () => {
           </Link>
         </div>
       </div>
+      <Notification />
     </div>
   );
 };

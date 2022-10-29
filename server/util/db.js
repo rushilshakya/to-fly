@@ -2,7 +2,14 @@ const { Sequelize } = require("sequelize");
 const { DATABASE_URL } = require("./config");
 const { Umzug, SequelizeStorage } = require("umzug");
 
-const sequelize = new Sequelize(DATABASE_URL);
+const sequelize = new Sequelize(DATABASE_URL, {
+  pool: {
+    max: 5,
+    min: 1,
+    acquire: 30000,
+    idle: 10000,
+  },
+});
 
 const migrationConf = {
   migrations: {
