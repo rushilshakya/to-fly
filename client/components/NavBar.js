@@ -23,20 +23,14 @@ const NavBar = () => {
       <div className="flex split-pair align-center region-tn">
         <img src={toskaLogo} alt="toska" className="logo" />
         <div className="flex gap-2 align-center">
+          {user.firstName ? <div>Hi {user.firstName}</div> : null}
           <Link to="/" className="text-link">
             Home
           </Link>
           {user.firstName ? (
-            <>
-              <div>Hi {user.firstName}</div>
-              <button
-                type="button"
-                className="text-link"
-                onClick={handleLogOut}
-              >
-                Logout
-              </button>
-            </>
+            <button type="button" className="text-link" onClick={handleLogOut}>
+              Logout
+            </button>
           ) : (
             <Link to="/login" className="text-link">
               Login

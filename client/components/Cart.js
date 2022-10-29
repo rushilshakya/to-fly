@@ -59,10 +59,7 @@ const Cart = () => {
               onChange={(event) => setAddress(event.target.value)}
             />
           </div>
-          <CheckoutButton
-            address={{ address }}
-            disabled={address.length > 0 ? false : true}
-          />
+          <CheckoutButton address={{ address }} />
         </>
       ) : (
         <div>Your cart is empty</div>
