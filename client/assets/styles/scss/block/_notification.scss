@@ -1,0 +1,23 @@
+.notification {
+  font-style: italic;
+  font-size: 20;
+  border-style: solid;
+  border-radius: 5;
+  padding: 10;
+  &-standby {
+    color: white;
+    background: white;
+  }
+  &-normal {
+    color: green;
+    background: lightgrey;
+  }
+  &-warning {
+    color: yellow;
+    background: lightgrey;
+  }
+  &-error {
+    color: red;
+    background: lightgrey;
+  }
+}
