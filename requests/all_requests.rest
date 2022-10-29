@@ -13,7 +13,7 @@ POST http://localhost:3001/api/login/ HTTP/1.1
 content-type: application/json
 
 {
-    "email": "rushil@hotmail.com",
+    "email": "rushila@hotmail.com",
     "password": "sek"
 }
 ###
@@ -30,7 +30,7 @@ GET http://localhost:3001/api/products/ HTTP/1.1
 ###
 POST http://localhost:3001/api/cart/ HTTP/1.1
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJ1c2hpbEBob3RtYWlsLmNvbSIsImlkIjoxLCJmaXJzdE5hbWUiOiJydXNoaWwiLCJsYXN0TmFtZSI6InNoYWt5YSIsImlhdCI6MTY2Njk3Njg3NSwiZXhwIjoxNjY2OTgwNDc1fQ.67qTNg6Dus2RuG0scSc6o6h_iSN8Qyzbw4dihB6knFQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJ1c2hpbGFAaG90bWFpbC5jb20iLCJpZCI6MiwiZmlyc3ROYW1lIjoicnVzaGlsIiwibGFzdE5hbWUiOiJzaGFreWEiLCJpYXQiOjE2NjcwMTIyMzIsImV4cCI6MTY2NzAxNTgzMn0.e-PuNJpVeOf36k2LkGTKLQt_kjflucAX8vWFGfRQcHA
 
 {
     "product_id": 2,
@@ -39,5 +39,5 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJ1c2hpb
 ###
 GET http://localhost:3001/api/cart/ HTTP/1.1
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJ1c2hpbEBob3RtYWlsLmNvbSIsImlkIjoxLCJmaXJzdE5hbWUiOiJydXNoaWwiLCJsYXN0TmFtZSI6InNoYWt5YSIsImlhdCI6MTY2Njk3Njg3NSwiZXhwIjoxNjY2OTgwNDc1fQ.67qTNg6Dus2RuG0scSc6o6h_iSN8Qyzbw4dihB6knFQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJ1c2hpbGFAaG90bWFpbC5jb20iLCJpZCI6MiwiZmlyc3ROYW1lIjoicnVzaGlsIiwibGFzdE5hbWUiOiJzaGFreWEiLCJpYXQiOjE2NjcwMTIyMzIsImV4cCI6MTY2NzAxNTgzMn0.e-PuNJpVeOf36k2LkGTKLQt_kjflucAX8vWFGfRQcHA
 
