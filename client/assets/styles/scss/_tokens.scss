@@ -19,6 +19,10 @@ $h4: 2rem; //32px
 $h5: 1.5rem; // 24px
 $paragraph: 1.125rem; //18px
 
+//spacing units
+$h-spacing-unit: 1.25rem;
+$v-spacing-unit: 1rem;
+
 // Breakpoint Mixins
 // 480px / 640px / 1024px / 1400px
 $breakpoint-up: (

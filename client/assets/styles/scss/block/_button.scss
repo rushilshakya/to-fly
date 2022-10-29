@@ -29,6 +29,11 @@
   &:hover {
     background-color: $primary-color-dark;
   }
+  &:disabled {
+    background-color: lightgray;
+    border: 1px solid lightgray;
+    cursor: auto;
+  }
 }
 .cart-button {
   width: 2em;
