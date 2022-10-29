@@ -77,5 +77,19 @@ export const addToCart = (product) => {
   };
 };
 
+export const checkoutCart = (address) => {
+  return async (dispatch, getState) => {
+    const user = getState().user;
+    if (user.token) {
+      try {
+        const cart = await cartService.checkoutCart(user, address);
+        dispatch(cartSlice.actions.setCart(cart));
+      } catch (e) {
+        console.log("something went wrong with checkout cart");
+      }
+    }
+  };
+};
+
 export const { logOutCart } = cartSlice.actions;
 export default cartSlice.reducer;

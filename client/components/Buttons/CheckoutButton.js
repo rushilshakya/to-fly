@@ -1,17 +1,14 @@
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../reducers/cartReducer";
+import { checkoutCart } from "../../reducers/cartReducer";
 
-const CheckoutButton = ({ disabled }) => {
+const CheckoutButton = ({ disabled, address }) => {
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    console.log("checkout");
-  };
   return (
     <button
       type="submit"
       className="buy-button"
-      onClick={handleSubmit}
+      onClick={() => dispatch(checkoutCart(address))}
       disabled={disabled}
     >
       Checkout

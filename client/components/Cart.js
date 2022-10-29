@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import CheckoutButton from "./Buttons/CheckoutButton";
 
@@ -59,7 +59,10 @@ const Cart = () => {
               onChange={(event) => setAddress(event.target.value)}
             />
           </div>
-          <CheckoutButton disabled={address.length > 0 ? false : true} />
+          <CheckoutButton
+            address={{ address }}
+            disabled={address.length > 0 ? false : true}
+          />
         </>
       ) : (
         <div>Your cart is empty</div>

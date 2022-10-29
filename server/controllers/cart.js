@@ -65,4 +65,22 @@ cartRouter.get("/", tokenExtractor, async (request, response) => {
   }
 });
 
+cartRouter.post("/checkout", tokenExtractor, async (request, response) => {
+  const { address } = request.body;
+
+  try {
+    await Order.update(
+      { address, status: "checked_out", check_out_date: Date.now() },
+      { where: { status: "cart", user_id: request.decodedToken.id } }
+    );
+
+    const cart = { address: null, order_detail: [] };
+
+    response.json(cart);
+  } catch (error) {
+    // next(error);
+    return response.status(400).json({ error });
+  }
+});
+
 module.exports = cartRouter;

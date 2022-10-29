@@ -12,6 +12,14 @@ const cartService = {
     const response = await axios.post(baseUrl, postItem, user.config);
     return response.data;
   },
+  checkoutCart: async (user, address) => {
+    const response = await axios.post(
+      `${baseUrl}/checkout`,
+      address,
+      user.config
+    );
+    return response.data;
+  },
 };
 
 export default cartService;
