@@ -8,6 +8,14 @@ const cartSlice = createSlice({
     setCart(state, action) {
       return { ...action.payload };
     },
+    changeCart(state, action) {
+      return {
+        ...state,
+        order_detail: state.order_detail.map((x) =>
+          x.id === action.payload.id ? action.payload : x
+        ),
+      };
+    },
   },
 });
 
@@ -32,13 +40,14 @@ export const addToCart = (product) => {
     const cart = getState().cart;
     if (!user.token) console.log("no user token");
     else {
-      let currentProductInCart = cart.products.find((x) => x.id === product.id);
-      let addedQuantity = currentProductInCart.order_detail.quantity + 1;
+      let currentProductInCart = cart.order_detail.find(
+        (x) => x.id === product.id
+      );
+      let addedQuantity = currentProductInCart.quantity + 1;
       try {
         const postProduct = { product_id: product.id, quantity: addedQuantity };
-        await cartService.postCart(postProduct, user);
-        const cart = await cartService.getCart(user);
-        dispatch(cartSlice.actions.setCart(cart));
+        const changedProduct = await cartService.postCart(postProduct, user);
+        dispatch(cartSlice.actions.changeCart(changedProduct));
       } catch (e) {
         console.log("something went wrong with get cart");
       }

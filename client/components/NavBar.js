@@ -7,11 +7,8 @@ import { logOutUser } from "../reducers/userReducer";
 const NavBar = () => {
   const user = useSelector((state) => state.user);
   const cartCount = useSelector((state) =>
-    state.cart.products
-      ? state.cart.products.reduce(
-          (prev, curr) => prev + curr.order_detail.quantity,
-          0
-        )
+    state.cart.order_detail
+      ? state.cart.order_detail.reduce((prev, curr) => prev + curr.quantity, 0)
       : 0
   );
   const dispatch = useDispatch();
@@ -46,7 +43,9 @@ const NavBar = () => {
               alt="Cart"
               className="cart-button grid-overlay"
             />
-            <div className="grid-overlay cart-count">{cartCount}</div>
+            <div className="grid-overlay cart-count flex split-center align-center">
+              {cartCount}
+            </div>
           </Link>
         </div>
       </div>
