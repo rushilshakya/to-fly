@@ -3,6 +3,7 @@ import userReducer from "./userReducer";
 import productReducer from "./productReducer";
 import cartReducer from "./cartReducer";
 import notificationReducer from "./notificationReducer";
+import loadingReducer from "./loadingReducer";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     products: productReducer,
     cart: cartReducer,
     notification: notificationReducer,
+    loading: loadingReducer,
   },
 });
 
