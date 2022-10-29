@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import cartService from "../services/cart";
 
+const cartInitialState = { address: null, order_detail: [] };
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {},
+  initialState: { ...cartInitialState },
   reducers: {
     setCart(state, action) {
       return { ...action.payload };
@@ -11,10 +13,14 @@ const cartSlice = createSlice({
     changeCart(state, action) {
       return {
         ...state,
-        order_detail: state.order_detail.map((x) =>
-          x.id === action.payload.id ? action.payload : x
-        ),
+        order_detail: [
+          ...state.order_detail.filter((x) => x.id !== action.payload.id),
+          { ...action.payload },
+        ],
       };
+    },
+    logOutCart() {
+      return { ...cartInitialState };
     },
   },
 });
@@ -22,8 +28,7 @@ const cartSlice = createSlice({
 export const initializeCart = () => {
   return async (dispatch, getState) => {
     const user = getState().user;
-    if (!user.token) dispatch(cartSlice.actions.setCart({}));
-    else {
+    if (user.token) {
       try {
         const cart = await cartService.getCart(user);
         dispatch(cartSlice.actions.setCart(cart));
@@ -40,10 +45,17 @@ export const addToCart = (product) => {
     const cart = getState().cart;
     if (!user.token) console.log("no user token");
     else {
-      let currentProductInCart = cart.order_detail.find(
-        (x) => x.id === product.id
-      );
-      let addedQuantity = currentProductInCart.quantity + 1;
+      let addedQuantity;
+      if (cart.order_detail.length) {
+        let currentProductInCart = cart.order_detail.find(
+          (x) => x.id === product.id
+        );
+        if (currentProductInCart)
+          addedQuantity = currentProductInCart.quantity + 1;
+        else addedQuantity = 1;
+      } else {
+        addedQuantity = 1;
+      }
       try {
         const postProduct = { product_id: product.id, quantity: addedQuantity };
         const changedProduct = await cartService.postCart(postProduct, user);
@@ -55,4 +67,5 @@ export const addToCart = (product) => {
   };
 };
 
+export const { logOutCart } = cartSlice.actions;
 export default cartSlice.reducer;

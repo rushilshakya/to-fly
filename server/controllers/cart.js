@@ -46,7 +46,7 @@ cartRouter.get("/", tokenExtractor, async (request, response) => {
     let cart;
 
     if (order === null) {
-      cart = {};
+      cart = { address: null, order_detail: [] };
     } else {
       cart = {
         address: order.address,

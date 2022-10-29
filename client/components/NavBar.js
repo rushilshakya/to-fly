@@ -3,15 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import toskaLogo from "../assets/images/toskalogo_color.svg";
 import cartImage from "../assets/images/cart.png";
 import { logOutUser } from "../reducers/userReducer";
+import { logOutCart } from "../reducers/cartReducer";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
   const cartCount = useSelector((state) =>
-    state.cart.order_detail
-      ? state.cart.order_detail.reduce((prev, curr) => prev + curr.quantity, 0)
-      : 0
+    state.cart.order_detail.reduce((prev, curr) => prev + curr.quantity, 0)
   );
   const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logOutUser());
+    dispatch(logOutCart());
+  };
 
   return (
     <div className="wrapper">
@@ -27,7 +31,7 @@ const NavBar = () => {
               <button
                 type="button"
                 className="text-link"
-                onClick={() => dispatch(logOutUser())}
+                onClick={handleLogOut}
               >
                 Logout
               </button>
