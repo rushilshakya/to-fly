@@ -3,10 +3,10 @@ const { Order, Product, User } = require("../models");
 const { tokenExtractor } = require("../util/middleware");
 
 cartRouter.post("/", tokenExtractor, async (request, response) => {
-  const { product_id, quantity } = request.body;
+  const { id, quantity } = request.body;
 
   try {
-    const product = await Product.findByPk(product_id);
+    const product = await Product.findByPk(id);
 
     const [order, created] = await Order.findOrCreate({
       where: {

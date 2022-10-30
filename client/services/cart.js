@@ -10,9 +10,9 @@ const cartService = {
     return response.data;
   },
   postCart: async (postItem, user) => {
-    notification.setLoading({ [postItem.product_id]: true });
+    notification.setLoading({ [postItem.id]: true });
     const response = await axios.post(baseUrl, postItem, user.config);
-    notification.setLoading({ [postItem.product_id]: false });
+    notification.setLoading({ [postItem.id]: false });
     return response.data;
   },
   checkoutCart: async (user, address) => {

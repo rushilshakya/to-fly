@@ -64,7 +64,7 @@ export const addToCart = (product) => {
         addedQuantity = 1;
       }
       try {
-        const postProduct = { product_id: product.id, quantity: addedQuantity };
+        const postProduct = { id: product.id, quantity: addedQuantity };
         const changedProduct = await cartService.postCart(postProduct, user);
 
         if (productExistsInCart)
