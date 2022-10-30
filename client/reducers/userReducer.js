@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import loginService from "../services/login";
+import userService from "../services/users";
+
+const makeConfig = (token) => {
+  return {
+    headers: { Authorization: `bearer ${token}` },
+  };
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -8,9 +14,6 @@ const userSlice = createSlice({
     storeUser(state, action) {
       return {
         ...action.payload,
-        config: {
-          headers: { Authorization: `bearer ${action.payload.token}` },
-        },
       };
     },
     logOutUser() {
@@ -23,6 +26,7 @@ const userSlice = createSlice({
 
 export const populateUser = (user) => {
   return async (dispatch) => {
+    user.config = makeConfig(user.token);
     localStorage.setItem("loggedUserJSON", JSON.stringify(user));
     dispatch(userSlice.actions.storeUser(user));
   };
@@ -34,7 +38,8 @@ export const initializeUser = () => {
     if (loggedUserJSON) {
       const parsedLoggedUserJSON = JSON.parse(loggedUserJSON);
       try {
-        const user = await loginService.me(parsedLoggedUserJSON);
+        const user = await userService.me(parsedLoggedUserJSON);
+        user.config = makeConfig(user.token);
         dispatch(userSlice.actions.storeUser(user));
       } catch (e) {
         console.log("token is not valid.  removing stored token");

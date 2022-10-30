@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 const { User, Product, Order } = require("../models");
 const { SECRET } = require("../util/config");
+const { tokenExtractor } = require("../util/middleware");
 
 usersRouter.post("/", async (request, response) => {
   const { email, password, firstName, lastName, cart } = request.body;
@@ -90,4 +91,18 @@ usersRouter.post("/", async (request, response) => {
   }
 });
 
+usersRouter.get("/", tokenExtractor, async (request, response) => {
+  try {
+    const user = await User.findByPk(request.decodedToken.id);
+    response.status(200).send({
+      token: request.token,
+      email: user.email,
+      id: user.id,
+      firstName: user.first_name,
+      lastName: user.last_name,
+    });
+  } catch (e) {
+    return response.status(401).json({ error: "token missing or invalid" });
+  }
+});
 module.exports = usersRouter;
