@@ -27,4 +27,8 @@ app.use("/api/*", middleware.unknownEndpoint);
 app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
+
+// this has to be the last loaded middleware.  it catches all errors thrown catch block that sends to next(error)
+app.use(middleware.errorHandler);
+
 module.exports = app;
