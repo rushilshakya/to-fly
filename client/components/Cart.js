@@ -18,7 +18,7 @@ const Cart = () => {
 
   return (
     <div className="wrapper padding-top-2 padding-bottom-3">
-      {cart.order_detail.length ? (
+      {cart.order_detail.length && Object.keys(products).length ? (
         <>
           <table>
             <caption>Your shopping cart</caption>
