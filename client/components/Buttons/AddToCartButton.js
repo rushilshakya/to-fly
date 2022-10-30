@@ -1,16 +1,23 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../reducers/cartReducer";
 import { createNotification } from "../../reducers/notificationReducer";
 
 const AddToCartButton = ({ product }) => {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loading);
 
   const handleSubmit = () => {
+    console.log("clicking", product);
     dispatch(addToCart(product));
     dispatch(createNotification(`Adding ${product.name} to cart`));
   };
   return (
-    <button type="submit" className="buy-button" onClick={handleSubmit}>
+    <button
+      type="submit"
+      className="buy-button"
+      onClick={handleSubmit}
+      disabled={loading[product.id]}
+    >
       Add to cart
     </button>
   );

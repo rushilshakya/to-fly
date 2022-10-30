@@ -1,7 +1,15 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../reducers/loadingReducer";
+import { notification } from "../utils/notificationHelper";
 
 const Notification = () => {
   const { message, type } = useSelector((state) => state.notification);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    notification.setLoading = (isLoading) => dispatch(setLoading(isLoading));
+  }, [dispatch]);
 
   if (message === null) {
     return <div className="notification notification-standby">E-commerce</div>;
