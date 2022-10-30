@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import loginService from "../services/login";
 import { populateUser } from "../reducers/userReducer";
@@ -14,7 +14,7 @@ const LoginForm = () => {
 
   const user = useSelector((state) => state.user);
 
-  const handleSubmit = async (event, { email, password }) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       dispatch(createNotification("logging in user"));
@@ -39,9 +39,9 @@ const LoginForm = () => {
         <>
           <h2>Login</h2>
 
-          <form onSubmit={(event) => handleSubmit(event, { email, password })}>
+          <form onSubmit={(event) => handleSubmit(event)}>
             <div>
-              username
+              Email
               <input
                 value={email}
                 id="username"
@@ -49,7 +49,7 @@ const LoginForm = () => {
               />
             </div>
             <div>
-              password
+              Password
               <input
                 type="password"
                 value={password}
@@ -61,6 +61,9 @@ const LoginForm = () => {
               login
             </button>
           </form>
+          <p>
+            Not registered? please <Link to="/signup">sign up</Link>
+          </p>
         </>
       )}
     </div>
