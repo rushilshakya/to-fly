@@ -1,11 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import cartService from "../services/cart";
 
-const cartInitialState = { address: null, order_detail: [] };
-
 const cartSlice = createSlice({
   name: "cart",
-  initialState: { ...cartInitialState },
+  initialState: { ...JSON.parse(localStorage.getItem("cart")) },
   reducers: {
     setCart(state, action) {
       return { ...action.payload };
@@ -25,7 +23,7 @@ const cartSlice = createSlice({
       };
     },
     logOutCart() {
-      return { ...cartInitialState };
+      return { address: null, order_detail: [] };
     },
   },
 });
@@ -48,31 +46,38 @@ export const addToCart = (product) => {
   return async (dispatch, getState) => {
     const user = getState().user;
     const cart = getState().cart;
-    if (!user.token) console.log("no user token");
-    else {
-      let addedQuantity;
-      let productExistsInCart = false;
-      if (cart.order_detail.length) {
-        let currentProductInCart = cart.order_detail.find(
-          (x) => x.id === product.id
-        );
-        if (currentProductInCart) {
-          addedQuantity = currentProductInCart.quantity + 1;
-          productExistsInCart = true;
-        } else addedQuantity = 1;
-      } else {
-        addedQuantity = 1;
-      }
-      try {
-        const postProduct = { id: product.id, quantity: addedQuantity };
-        const changedProduct = await cartService.postCart(postProduct, user);
 
-        if (productExistsInCart)
-          dispatch(cartSlice.actions.updateCart(changedProduct));
-        else dispatch(cartSlice.actions.addCart(changedProduct));
-      } catch (e) {
-        console.log("something went wrong with get cart");
+    let addedQuantity;
+    let productExistsInCart = false;
+    let changedProduct = {};
+
+    if (cart.order_detail.length) {
+      let currentProductInCart = cart.order_detail.find(
+        (x) => x.id === product.id
+      );
+      if (currentProductInCart) {
+        addedQuantity = currentProductInCart.quantity + 1;
+        productExistsInCart = true;
+      } else addedQuantity = 1;
+    } else {
+      addedQuantity = 1;
+    }
+
+    const postProduct = { id: product.id, quantity: addedQuantity };
+    try {
+      if (user.token) {
+        changedProduct = await cartService.postCart(postProduct, user);
+      } else {
+        changedProduct = { ...postProduct, item_price: product.price };
       }
+
+      if (productExistsInCart) {
+        dispatch(cartSlice.actions.updateCart(changedProduct));
+      } else {
+        dispatch(cartSlice.actions.addCart(changedProduct));
+      }
+    } catch (e) {
+      console.log("something went wrong with get cart");
     }
   };
 };

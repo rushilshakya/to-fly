@@ -5,6 +5,9 @@ import { notification } from "../utils/notificationHelper";
 
 const Notification = () => {
   const { message, type } = useSelector((state) => state.notification);
+  const cart = useSelector((state) => state.cart);
+  localStorage.setItem("cart", JSON.stringify(cart));
+
   const dispatch = useDispatch();
 
   useEffect(() => {
