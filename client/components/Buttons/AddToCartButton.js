@@ -7,7 +7,6 @@ const AddToCartButton = ({ product }) => {
   const loading = useSelector((state) => state.loading);
 
   const handleSubmit = () => {
-    console.log("clicking", product);
     dispatch(addToCart(product));
     dispatch(createNotification(`Adding ${product.name} to cart`));
   };
