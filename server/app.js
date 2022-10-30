@@ -7,6 +7,7 @@ const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 const productsRouter = require("./controllers/products");
 const cartRouter = require("./controllers/cart");
+const middleware = require("./util/middleware");
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
+
+// send all /api calls not handled above to unknown endpoint
+app.use("/api/*", middleware.unknownEndpoint);
 
 // sends index.html
 app.use("*", (req, res) => {
