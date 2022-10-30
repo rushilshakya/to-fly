@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import CheckoutButton from "./Buttons/CheckoutButton";
 
 const Cart = () => {
@@ -15,6 +16,7 @@ const Cart = () => {
       return prev;
     }, {})
   );
+  const loggedInUser = useSelector((state) => state.user.token);
 
   return (
     <div className="wrapper padding-top-2 padding-bottom-3">
@@ -51,14 +53,21 @@ const Cart = () => {
               </tr>
             </tfoot>
           </table>
-          <div className="padding-bottom-1">
-            Enter shipping address
-            <input
-              id="address"
-              value={address}
-              onChange={(event) => setAddress(event.target.value)}
-            />
-          </div>
+          {loggedInUser ? (
+            <div className="padding-bottom-1">
+              Enter shipping address
+              <input
+                id="address"
+                value={address}
+                onChange={(event) => setAddress(event.target.value)}
+              />
+            </div>
+          ) : (
+            <div className="padding-bottom-1">
+              Please <Link to="/login">login</Link> to checkout
+            </div>
+          )}
+
           <CheckoutButton address={{ address }} />
         </>
       ) : (
