@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import cartService from "../services/cart";
 
+const emptyCart = { address: null, order_detail: [] };
+const cartInLocalstorage = JSON.parse(localStorage.getItem("cart"));
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: { ...JSON.parse(localStorage.getItem("cart")) },
+  initialState: cartInLocalstorage
+    ? { ...cartInLocalstorage }
+    : { ...emptyCart },
   reducers: {
     setCart(state, action) {
       return { ...action.payload };
@@ -23,7 +28,7 @@ const cartSlice = createSlice({
       };
     },
     logOutCart() {
-      return { address: null, order_detail: [] };
+      return { ...emptyCart };
     },
   },
 });
